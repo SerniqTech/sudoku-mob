@@ -1,5 +1,18 @@
-import { Stack } from "expo-router";
+import { useEffect } from 'react';
+import { Stack } from 'expo-router';
+import { useGameStore } from '../store/gameStore';
 
 export default function RootLayout() {
-  return <Stack />;
+  const loadSavedGame = useGameStore(state => state.loadSavedGame);
+
+  useEffect(() => {
+    loadSavedGame();
+  }, [loadSavedGame]);
+
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" />
+      <Stack.Screen name="game" />
+    </Stack>
+  );
 }
